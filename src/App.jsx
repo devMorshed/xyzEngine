@@ -31,12 +31,12 @@ const App = () => {
   }
 
   return (
-    <main className="my-10 px-10">
+    <main className="my-10 px-10 max-w-5xl mx-auto">
       <section>
         <h1 className="text-5xl text-center uppercase font-bold tracking-wide">
           Welcome to XYZ Engine
         </h1>
-        <div className="relative border  w-2/3 my-10 mx-auto rounded bg-slate-200 p-4">
+        <div className="relative border my-10 mx-auto rounded bg-slate-200 p-4">
           <div className="absolute top-5 right-5">
             <p>
               {currentStep + 1} / {steps.length}
@@ -46,7 +46,7 @@ const App = () => {
             {step}
             <div className="flex justify-end gap-2 mt-8">
               {!isFirstStep && <button onClick={goPrev}>Prev</button>}
-              <button>{isLastStep ? "Submit" : "Next"}</button>
+              {!isLastStep && <button>Next</button>}
             </div>
           </form>
         </div>

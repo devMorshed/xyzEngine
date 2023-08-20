@@ -1,5 +1,7 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from "react";
-
+import Pdf from "react-to-pdf";
+const ref = React.createRef();
 const ProjectData = ({
   projectName,
   projectDescription,
@@ -80,122 +82,181 @@ const ProjectData = ({
   console.log(minMaxValues);
 
   return (
-    <div className="flex flex-col gap-4">
-      <input
-        disabled
-        autoFocus
-        className="px-2 py-1 rounded"
-        type="text"
-        placeholder="Project Name"
-        value={projectName}
-      />
-      <input
-        disabled
-        className="px-2 py-1 rounded"
-        type="text"
-        placeholder="Project Description"
-        value={projectDescription}
-      />
-      <input
-        disabled
-        className="px-2 py-1 rounded"
-        type="text"
-        placeholder="Client"
-        value={client}
-      />
-      <input
-        disabled
-        className="px-2 py-1 rounded"
-        type="text"
-        placeholder="Contractor"
-        value={contractor}
-      />
-      <input
-        className="px-2 py-1 rounded"
-        type="file"
-        onChange={handleFileChange}
-        accept=".csv"
-      />
-      <input
-        required
-        className="px-2 py-1 rounded"
-        type="number"
-        name="max_X"
-        id="max_X"
-        placeholder="max_X"
-        value={minMaxValues.max_X}
-        disabled={fileUploaded}
-        onChange={(e) =>
-          setMinMaxValues({ ...minMaxValues, max_X: e.target.value })
-        }
-      />
-      <input
-        className="px-2 py-1 rounded"
-        type="number"
-        name="min_X"
-        id="min_X"
-        placeholder="min_X"
-        value={minMaxValues.min_X}
-        disabled={fileUploaded}
-        onChange={(e) =>
-          setMinMaxValues({ ...minMaxValues, min_X: e.target.value })
-        }
-        required
-      />
-      <input
-        className="px-2 py-1 rounded"
-        type="number"
-        name="max_Y"
-        id="max_Y"
-        placeholder="max_Y"
-        value={minMaxValues.max_Y}
-        disabled={fileUploaded}
-        onChange={(e) =>
-          setMinMaxValues({ ...minMaxValues, max_Y: e.target.value })
-        }
-        required
-      />
+    <>
+      <div
+        ref={ref}
+        className="flex items-center flex-col gap-10 md:flex-row justify-center"
+      >
+        <div>
+          <label htmlFor="projectName" className=" flex items-center">
+            Name:
+            <input
+              disabled
+              autoFocus
+              id="projectName"
+              className="px-2 py-1 rounded"
+              type="text"
+              placeholder="Project Name"
+              value={projectName}
+            />
+          </label>
 
-      <input
-        className="px-2 py-1 rounded"
-        type="number"
-        name="min_Y"
-        id="min_Y"
-        placeholder="min_Y"
-        disabled={fileUploaded}
-        value={minMaxValues?.min_Y}
-        onChange={(e) =>
-          setMinMaxValues({ ...minMaxValues, min_Y: e.target.value })
-        }
-        required
-      />
-      <input
-        className="px-2 py-1 rounded"
-        type="number"
-        name="max_Z"
-        id="max_Z"
-        placeholder="max_Z"
-        value={minMaxValues?.max_Z}
-        disabled={fileUploaded}
-        onChange={(e) =>
-          setMinMaxValues({ ...minMaxValues, max_Z: e.target.value })
-        }
-        required
-      />
-      <input
-        className="px-2 py-1 rounded"
-        type="number"
-        name="min_Z"
-        id="min_Z"
-        placeholder="min_Z"
-        value={minMaxValues?.min_Z}
-        disabled={fileUploaded}
-        onChange={(e) =>
-          setMinMaxValues({ ...minMaxValues, min_Z: e.target.value })
-        }
-        required
-      />
-    </div>
+          <label htmlFor="projectDescription" className=" flex items-center">
+            Description:
+            <input
+              disabled
+              id="projectDescription"
+              className="px-2 py-1"
+              type="text"
+              placeholder="Project Description"
+              value={projectDescription}
+            />
+          </label>
+
+          <label htmlFor="client" className=" flex items-center gap-10">
+            Client:
+            <input
+              disabled
+              id="client"
+              className="px-2 py-1"
+              type="text"
+              placeholder="Client"
+              value={client}
+            />
+          </label>
+
+          <label htmlFor="contractor" className=" flex items-center gap-10">
+            Contractor:
+            <input
+              disabled
+              id="contractor"
+              className="px-2 py-1"
+              type="text"
+              placeholder="Contractor"
+              value={contractor}
+            />
+          </label>
+        </div>
+        <div className="flex flex-col gap-2 border">
+          <input
+            className="px-2 py-1"
+            type="file"
+            onChange={handleFileChange}
+            accept=".csv"
+          />
+          <label htmlFor="max_X">
+            Max X:
+            <input
+              required
+              className="px-2 py-1 rounded ms-2"
+              type="number"
+              name="max_X"
+              id="max_X"
+              placeholder="max_X"
+              value={minMaxValues.max_X}
+              disabled={fileUploaded}
+              onChange={(e) =>
+                setMinMaxValues({ ...minMaxValues, max_X: e.target.value })
+              }
+            />
+          </label>
+          <label htmlFor="min_X">
+            Min X:
+            <input
+              className="px-2 py-1 rounded ms-2"
+              type="number"
+              name="min_X"
+              id="min_X"
+              placeholder="min_X"
+              value={minMaxValues.min_X}
+              disabled={fileUploaded}
+              onChange={(e) =>
+                setMinMaxValues({ ...minMaxValues, min_X: e.target.value })
+              }
+              required
+            />
+          </label>
+
+          <label htmlFor="max_Y">
+            Max Y:
+            <input
+              className="px-2 py-1 rounded ms-2"
+              type="number"
+              name="max_Y"
+              id="max_Y"
+              placeholder="max_Y"
+              value={minMaxValues.max_Y}
+              disabled={fileUploaded}
+              onChange={(e) =>
+                setMinMaxValues({ ...minMaxValues, max_Y: e.target.value })
+              }
+              required
+            />
+          </label>
+
+          <label htmlFor="min_Y">
+            Min Y:
+            <input
+              className="px-2 py-1 rounded ms-2"
+              type="number"
+              name="min_Y"
+              id="min_Y"
+              placeholder="min_Y"
+              disabled={fileUploaded}
+              value={minMaxValues?.min_Y}
+              onChange={(e) =>
+                setMinMaxValues({ ...minMaxValues, min_Y: e.target.value })
+              }
+              required
+            />
+          </label>
+
+          <label htmlFor="max_Z">
+            Maz Z:
+            <input
+              className="px-2 py-1 rounded ms-2"
+              type="number"
+              name="max_Z"
+              id="max_Z"
+              placeholder="max_Z"
+              value={minMaxValues?.max_Z}
+              disabled={fileUploaded}
+              onChange={(e) =>
+                setMinMaxValues({ ...minMaxValues, max_Z: e.target.value })
+              }
+              required
+            />
+          </label>
+
+          <label htmlFor="min_Z">
+            Min Z:
+            <input
+              className="px-2 py-1 rounded ms-2"
+              type="number"
+              name="min_Z"
+              id="min_Z"
+              placeholder="min_Z"
+              value={minMaxValues?.min_Z}
+              disabled={fileUploaded}
+              onChange={(e) =>
+                setMinMaxValues({ ...minMaxValues, min_Z: e.target.value })
+              }
+              required
+            />
+          </label>
+        </div>
+      </div>
+      <Pdf targetRef={ref} filename="code-example.pdf">
+        {({ toPdf }) => (
+          <button
+            className="mx-auto block mt-10 bg-red-500 px-4 py-2 rounded text-gray-200 font-semibold"
+            onClick={toPdf}
+          >
+            Download PDF
+          </button>
+        )}
+      </Pdf>
+    </>
   );
 };
 
